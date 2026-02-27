@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Pixi
+.pixi/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.claude
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Build
+*.spec
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Application data
+Downloads/
+
+# Video syncer cache
+src/video_syncer/__pycache__/
+src/video_syncer/**/__pycache__/
+
+secrets.json
+cloudwatch_secrets.json
+signing_mas.sh
+signing.sh
+
+VERSION

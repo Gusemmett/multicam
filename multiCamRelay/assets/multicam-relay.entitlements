@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Required for running as a notarized app -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+
+    <!-- Network server capability (for WebSocket server) -->
+    <key>com.apple.security.network.server</key>
+    <true/>
+
+    <!-- Network client capability (for TCP connections to devices) -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+</dict>
+</plist>

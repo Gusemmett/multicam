@@ -1,0 +1,17 @@
+# Cargo configuration for multicam-relay
+
+# Build configuration
+[build]
+# Uncomment to enable incremental compilation for faster rebuilds
+# incremental = true
+
+# Target-specific settings for release builds
+[profile.release]
+# These are also in Cargo.toml but can be overridden here
+
+# Note: For build tasks, use the Makefile:
+#
+#   make bundle-macos   # Create macOS .app bundle (release)
+#   make bundle-debug   # Create macOS .app bundle (debug)
+#   make install        # Install to /Applications
+#   make help           # Show all tasks

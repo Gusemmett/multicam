@@ -1,0 +1,624 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D33D90142E865C1C003E5029 /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = D33D90132E865C1C003E5029 /* AWSS3 */; };
+		D33D90162E865C1C003E5029 /* AWSS3Control in Frameworks */ = {isa = PBXBuildFile; productRef = D33D90152E865C1C003E5029 /* AWSS3Control */; };
+		D3CCF5402EA0BB1700221555 /* MultiCamCommon in Frameworks */ = {isa = PBXBuildFile; productRef = D3CCF53F2EA0BB1700221555 /* MultiCamCommon */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D33D8FDF2E864701003E5029 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D33D8FC52E8646FF003E5029 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D33D8FCC2E8646FF003E5029;
+			remoteInfo = multiCamControllerMacos;
+		};
+		D33D8FE92E864701003E5029 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D33D8FC52E8646FF003E5029 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D33D8FCC2E8646FF003E5029;
+			remoteInfo = multiCamControllerMacos;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D33D8FCD2E8646FF003E5029 /* multiCamControllerMacos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = multiCamControllerMacos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D33D8FDE2E864701003E5029 /* multiCamControllerMacosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = multiCamControllerMacosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D33D8FE82E864701003E5029 /* multiCamControllerMacosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = multiCamControllerMacosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		D33D8FCF2E8646FF003E5029 /* multiCamControllerMacos */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = multiCamControllerMacos;
+			sourceTree = "<group>";
+		};
+		D33D8FE12E864701003E5029 /* multiCamControllerMacosTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = multiCamControllerMacosTests;
+			sourceTree = "<group>";
+		};
+		D33D8FEB2E864701003E5029 /* multiCamControllerMacosUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = multiCamControllerMacosUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D33D8FCA2E8646FF003E5029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3CCF5402EA0BB1700221555 /* MultiCamCommon in Frameworks */,
+				D33D90162E865C1C003E5029 /* AWSS3Control in Frameworks */,
+				D33D90142E865C1C003E5029 /* AWSS3 in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D33D8FDB2E864701003E5029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D33D8FE52E864701003E5029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D33D8FC42E8646FF003E5029 = {
+			isa = PBXGroup;
+			children = (
+				D33D8FCF2E8646FF003E5029 /* multiCamControllerMacos */,
+				D33D8FE12E864701003E5029 /* multiCamControllerMacosTests */,
+				D33D8FEB2E864701003E5029 /* multiCamControllerMacosUITests */,
+				D33D901B2E867A46003E5029 /* Frameworks */,
+				D33D8FCE2E8646FF003E5029 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D33D8FCE2E8646FF003E5029 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D33D8FCD2E8646FF003E5029 /* multiCamControllerMacos.app */,
+				D33D8FDE2E864701003E5029 /* multiCamControllerMacosTests.xctest */,
+				D33D8FE82E864701003E5029 /* multiCamControllerMacosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D33D901B2E867A46003E5029 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D33D8FCC2E8646FF003E5029 /* multiCamControllerMacos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D33D8FF22E864701003E5029 /* Build configuration list for PBXNativeTarget "multiCamControllerMacos" */;
+			buildPhases = (
+				D33D8FC92E8646FF003E5029 /* Sources */,
+				D33D8FCA2E8646FF003E5029 /* Frameworks */,
+				D33D8FCB2E8646FF003E5029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D33D8FCF2E8646FF003E5029 /* multiCamControllerMacos */,
+			);
+			name = multiCamControllerMacos;
+			packageProductDependencies = (
+				D33D90132E865C1C003E5029 /* AWSS3 */,
+				D33D90152E865C1C003E5029 /* AWSS3Control */,
+				D3CCF53F2EA0BB1700221555 /* MultiCamCommon */,
+			);
+			productName = multiCamControllerMacos;
+			productReference = D33D8FCD2E8646FF003E5029 /* multiCamControllerMacos.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D33D8FDD2E864701003E5029 /* multiCamControllerMacosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D33D8FF52E864701003E5029 /* Build configuration list for PBXNativeTarget "multiCamControllerMacosTests" */;
+			buildPhases = (
+				D33D8FDA2E864701003E5029 /* Sources */,
+				D33D8FDB2E864701003E5029 /* Frameworks */,
+				D33D8FDC2E864701003E5029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D33D8FE02E864701003E5029 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D33D8FE12E864701003E5029 /* multiCamControllerMacosTests */,
+			);
+			name = multiCamControllerMacosTests;
+			packageProductDependencies = (
+			);
+			productName = multiCamControllerMacosTests;
+			productReference = D33D8FDE2E864701003E5029 /* multiCamControllerMacosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D33D8FE72E864701003E5029 /* multiCamControllerMacosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D33D8FF82E864701003E5029 /* Build configuration list for PBXNativeTarget "multiCamControllerMacosUITests" */;
+			buildPhases = (
+				D33D8FE42E864701003E5029 /* Sources */,
+				D33D8FE52E864701003E5029 /* Frameworks */,
+				D33D8FE62E864701003E5029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D33D8FEA2E864701003E5029 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D33D8FEB2E864701003E5029 /* multiCamControllerMacosUITests */,
+			);
+			name = multiCamControllerMacosUITests;
+			packageProductDependencies = (
+			);
+			productName = multiCamControllerMacosUITests;
+			productReference = D33D8FE82E864701003E5029 /* multiCamControllerMacosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D33D8FC52E8646FF003E5029 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				ORGANIZATIONNAME = emve;
+				TargetAttributes = {
+					D33D8FCC2E8646FF003E5029 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					D33D8FDD2E864701003E5029 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = D33D8FCC2E8646FF003E5029;
+					};
+					D33D8FE72E864701003E5029 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = D33D8FCC2E8646FF003E5029;
+					};
+				};
+			};
+			buildConfigurationList = D33D8FC82E8646FF003E5029 /* Build configuration list for PBXProject "multiCamControllerMacos" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D33D8FC42E8646FF003E5029;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D33D90122E865C1C003E5029 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
+				D3CCF53E2EA0BB1700221555 /* XCLocalSwiftPackageReference "../multiCamCommon/swift" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = D33D8FCE2E8646FF003E5029 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D33D8FCC2E8646FF003E5029 /* multiCamControllerMacos */,
+				D33D8FDD2E864701003E5029 /* multiCamControllerMacosTests */,
+				D33D8FE72E864701003E5029 /* multiCamControllerMacosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D33D8FCB2E8646FF003E5029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D33D8FDC2E864701003E5029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D33D8FE62E864701003E5029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D33D8FC92E8646FF003E5029 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D33D8FDA2E864701003E5029 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D33D8FE42E864701003E5029 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D33D8FE02E864701003E5029 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D33D8FCC2E8646FF003E5029 /* multiCamControllerMacos */;
+			targetProxy = D33D8FDF2E864701003E5029 /* PBXContainerItemProxy */;
+		};
+		D33D8FEA2E864701003E5029 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D33D8FCC2E8646FF003E5029 /* multiCamControllerMacos */;
+			targetProxy = D33D8FE92E864701003E5029 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D33D8FF02E864701003E5029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D33D8FF12E864701003E5029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		D33D8FF32E864701003E5029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = multiCamControllerMacos/multiCamControllerMacos.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"multiCamControllerMacos/Preview Content\"";
+				DEVELOPMENT_TEAM = 8Y4V3CEE24;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "MultiCam Controller";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emve.multiCamControllerMacos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D33D8FF42E864701003E5029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = multiCamControllerMacos/multiCamControllerMacos.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"multiCamControllerMacos/Preview Content\"";
+				DEVELOPMENT_TEAM = 8Y4V3CEE24;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "MultiCam Controller";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emve.multiCamControllerMacos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		D33D8FF62E864701003E5029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y4V3CEE24;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emve.multiCamControllerMacosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/multiCamControllerMacos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/multiCamControllerMacos";
+			};
+			name = Debug;
+		};
+		D33D8FF72E864701003E5029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y4V3CEE24;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emve.multiCamControllerMacosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/multiCamControllerMacos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/multiCamControllerMacos";
+			};
+			name = Release;
+		};
+		D33D8FF92E864701003E5029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y4V3CEE24;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emve.multiCamControllerMacosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = multiCamControllerMacos;
+			};
+			name = Debug;
+		};
+		D33D8FFA2E864701003E5029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y4V3CEE24;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emve.multiCamControllerMacosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = multiCamControllerMacos;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D33D8FC82E8646FF003E5029 /* Build configuration list for PBXProject "multiCamControllerMacos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D33D8FF02E864701003E5029 /* Debug */,
+				D33D8FF12E864701003E5029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D33D8FF22E864701003E5029 /* Build configuration list for PBXNativeTarget "multiCamControllerMacos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D33D8FF32E864701003E5029 /* Debug */,
+				D33D8FF42E864701003E5029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D33D8FF52E864701003E5029 /* Build configuration list for PBXNativeTarget "multiCamControllerMacosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D33D8FF62E864701003E5029 /* Debug */,
+				D33D8FF72E864701003E5029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D33D8FF82E864701003E5029 /* Build configuration list for PBXNativeTarget "multiCamControllerMacosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D33D8FF92E864701003E5029 /* Debug */,
+				D33D8FFA2E864701003E5029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		D3CCF53E2EA0BB1700221555 /* XCLocalSwiftPackageReference "../multiCamCommon/swift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../multiCamCommon/swift;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D33D90122E865C1C003E5029 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/awslabs/aws-sdk-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.50;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D33D90132E865C1C003E5029 /* AWSS3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D33D90122E865C1C003E5029 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
+			productName = AWSS3;
+		};
+		D33D90152E865C1C003E5029 /* AWSS3Control */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D33D90122E865C1C003E5029 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
+			productName = AWSS3Control;
+		};
+		D3CCF53F2EA0BB1700221555 /* MultiCamCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MultiCamCommon;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D33D8FC52E8646FF003E5029 /* Project object */;
+}

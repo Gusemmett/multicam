@@ -1,0 +1,80 @@
+# ====== macOS ======
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ====== IDE & Editors ======
+.idea/
+.vscode/
+.cursor/
+*.swp
+*.swo
+*~
+
+# ====== Claude Code ======
+.claude/
+
+# ====== Logs ======
+*.log
+
+# ====== Secrets ======
+secrets.json
+cloudwatch_secrets.json
+signing.sh
+signing_mas.sh
+
+# ====== Android ======
+*.iml
+.gradle/
+local.properties
+/captures/
+.externalNativeBuild/
+.cxx/
+**/build/
+
+# ====== iOS / macOS (Xcode) ======
+xcuserdata/
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.hmap
+*.ipa
+.build/
+/Packages/
+
+# ====== Python ======
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pixi/
+venv/
+env/
+ENV/
+.venv/
+*.egg-info/
+*.egg
+.installed.cfg
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ====== Rust ======
+target/
+**/*.rs.bk
+Cargo.lock.bak
+
+# ====== Pixi (Python env manager) ======
+.pixi/

@@ -1,0 +1,215 @@
+# GitHub Actions workflow for building and releasing MultiCam Relay
+#
+# Triggers on git tags (e.g., v0.1.0)
+# Builds signed and notarized macOS DMGs for both arm64 and x86_64 architectures
+# and creates a GitHub release with both binaries
+#
+# Required secrets:
+#   APPLE_CERTIFICATE_BASE64   - Base64 encoded .p12 certificate file
+#   APPLE_CERTIFICATE_PASSWORD - Password for the .p12 certificate
+#   APPLE_ID                   - Apple ID email for notarization
+#   APPLE_TEAM_ID              - 10-character Team ID
+#   APPLE_APP_PASSWORD         - App-specific password for notarization
+#
+# To encode your certificate:
+#   base64 -i Certificates.p12 | pbcopy
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        include:
+          - target: aarch64-apple-darwin
+            arch: arm64
+            arch_name: Apple Silicon
+          - target: x86_64-apple-darwin
+            arch: intel
+            arch_name: Intel
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Add Rust target
+        run: rustup target add ${{ matrix.target }}
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-${{ matrix.target }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Install Apple certificate
+        env:
+          APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        run: |
+          # Create a temporary keychain
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+          KEYCHAIN_PASSWORD=$(openssl rand -base64 32)
+
+          # Decode certificate
+          echo "$APPLE_CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/certificate.p12
+
+          # Create keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # Import certificate
+          security import $RUNNER_TEMP/certificate.p12 \
+            -P "$APPLE_CERTIFICATE_PASSWORD" \
+            -A -t cert -f pkcs12 \
+            -k $KEYCHAIN_PATH
+
+          # Set key partition list
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # Add to search list
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          # Clean up
+          rm $RUNNER_TEMP/certificate.p12
+
+      - name: Store notarization credentials
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        run: |
+          # Store notarization credentials in keychain profile (same name as local default)
+          xcrun notarytool store-credentials "multiCamControllerNotary" \
+            --apple-id "$APPLE_ID" \
+            --team-id "$APPLE_TEAM_ID" \
+            --password "$APPLE_APP_PASSWORD"
+
+      - name: Build and sign app (${{ matrix.arch_name }})
+        run: make bundle-${{ matrix.arch }}
+
+      - name: Notarize app (${{ matrix.arch_name }})
+        run: make notarize-${{ matrix.arch }}
+
+      - name: Create DMG (${{ matrix.arch_name }})
+        run: make dmg-${{ matrix.arch }}
+
+      - name: Upload DMG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MultiCam-Relay-${{ steps.version.outputs.VERSION }}-${{ matrix.arch }}
+          path: target/${{ matrix.target }}/release/MultiCam-Relay-*-${{ matrix.arch }}.dmg
+
+  create-release:
+    needs: build-macos
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Download arm64 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: MultiCam-Relay-${{ steps.version.outputs.VERSION }}-arm64
+          path: artifacts/
+
+      - name: Download Intel artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: MultiCam-Relay-${{ steps.version.outputs.VERSION }}-intel
+          path: artifacts/
+
+      - name: List artifacts
+        run: ls -la artifacts/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/*.dmg
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref, '-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Optional: Build for other platforms (unsigned)
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Package
+        run: |
+          mkdir -p dist
+          cp target/release/multicam-relay dist/
+          tar -czvf multicam-relay-${{ steps.version.outputs.VERSION }}-linux-x86_64.tar.gz -C dist .
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: multicam-relay-*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Get version from tag
+        id: version
+        shell: bash
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Package
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp target/release/multicam-relay.exe dist/
+          7z a multicam-relay-${{ steps.version.outputs.VERSION }}-windows-x86_64.zip ./dist/*
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: multicam-relay-*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

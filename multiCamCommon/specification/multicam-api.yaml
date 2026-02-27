@@ -1,0 +1,651 @@
+openapi: 3.0.3
+info:
+  title: MultiCam API
+  description: |
+    Synchronized multi-device camera recording API for coordinating video capture across multiple devices.
+
+    ## Overview
+
+    MultiCam enables precise synchronization of video recording across multiple camera devices (iOS, Android, etc.)
+    using TCP/IP communication with JSON message format and NTP-based time synchronization.
+
+    ## Protocol
+
+    - **Transport**: TCP on port 8080
+    - **Discovery**: mDNS/Bonjour service type `_multicam._tcp.local.`
+    - **Message Format**: JSON for commands/responses
+    - **File Transfer**: Custom binary protocol (see PROTOCOL.md)
+    - **Time Sync**: NTP using pool.ntp.org
+
+    ## Device Types
+
+    - iOS devices (Swift implementation)
+    - Android devices (Java implementation)
+    - Desktop controllers (Python implementation)
+
+  version: 1.1.0
+  contact:
+    name: MultiCam API
+  license:
+    name: MIT
+
+servers:
+  - url: 'tcp://device-ip:8080'
+    description: Device TCP server (not HTTP)
+
+tags:
+  - name: Recording
+    description: Start and stop recording operations
+  - name: Status
+    description: Device status and health checks
+  - name: Files
+    description: File listing and retrieval operations
+  - name: Upload
+    description: Cloud upload operations
+
+paths:
+  /command:
+    post:
+      summary: Send command to device
+      description: |
+        All commands are sent as JSON over TCP socket. The device responds with a StatusResponse or FileResponse.
+
+        **Note**: This is a TCP socket API, not HTTP. The OpenAPI spec is used for documentation purposes.
+      tags:
+        - Recording
+        - Status
+        - Files
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommandMessage'
+            examples:
+              startRecordingImmediate:
+                summary: Start recording immediately
+                value:
+                  command: START_RECORDING
+                  timestamp: 1729000000.123
+                  deviceId: controller
+              startRecordingScheduled:
+                summary: Start recording at scheduled time (synchronized)
+                value:
+                  command: START_RECORDING
+                  timestamp: 1729000003.500
+                  deviceId: controller
+              stopRecording:
+                summary: Stop recording
+                value:
+                  command: STOP_RECORDING
+                  timestamp: 1729000030.123
+                  deviceId: controller
+              deviceStatus:
+                summary: Query device status
+                value:
+                  command: DEVICE_STATUS
+                  timestamp: 1729000000.123
+                  deviceId: controller
+              getVideo:
+                summary: Download video file
+                value:
+                  command: GET_VIDEO
+                  timestamp: 1729000000.123
+                  deviceId: controller
+                  fileId: device-uuid_1729000000123
+              listFiles:
+                summary: List available files
+                value:
+                  command: LIST_FILES
+                  timestamp: 1729000000.123
+                  deviceId: controller
+              heartbeat:
+                summary: Health check ping
+                value:
+                  command: HEARTBEAT
+                  timestamp: 1729000000.123
+                  deviceId: controller
+              uploadToCloud:
+                summary: Upload video file to cloud (S3)
+                value:
+                  command: UPLOAD_TO_CLOUD
+                  timestamp: 1729000000.123
+                  deviceId: controller
+                  fileId: device-uuid_1729000000123
+                  uploadUrl: https://bucket.s3.amazonaws.com/path/video.mp4?presigned-params
+              uploadStatus:
+                summary: Get upload status and queue
+                value:
+                  command: UPLOAD_STATUS
+                  timestamp: 1729000000.123
+                  deviceId: controller
+      responses:
+        '200':
+          description: Command processed successfully
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/StatusResponse'
+                  - $ref: '#/components/schemas/ListFilesResponse'
+                  - $ref: '#/components/schemas/UploadStatusResponse'
+              examples:
+                recordingStarted:
+                  summary: Recording started (immediate)
+                  value:
+                    deviceId: device-uuid
+                    status: ready
+                    message: Immediate recording started
+                    timestamp: 1729000000.456
+                    isRecording: true
+                    fileId: null
+                    fileSize: null
+                scheduledRecordingAccepted:
+                  summary: Scheduled recording accepted
+                  value:
+                    deviceId: device-uuid
+                    status: scheduled_recording_accepted
+                    message: Scheduled recording accepted
+                    timestamp: 1729000000.456
+                    isRecording: false
+                    fileId: null
+                    fileSize: null
+                recordingStopped:
+                  summary: Recording stopped
+                  value:
+                    deviceId: device-uuid
+                    status: recording_stopped
+                    message: Recording stopped
+                    timestamp: 1729000030.789
+                    isRecording: false
+                    fileId: device-uuid_1729000000123
+                    fileSize: 52428800
+                deviceReady:
+                  summary: Device status - ready
+                  value:
+                    deviceId: device-uuid
+                    status: ready
+                    timestamp: 1729000000.123
+                    isRecording: false
+                    fileId: null
+                    fileSize: null
+                listFilesResponse:
+                  summary: List of available files
+                  value:
+                    deviceId: device-uuid
+                    status: ready
+                    timestamp: 1729000000.123
+                    files:
+                      - fileId: device-uuid_1729000000123
+                        fileName: video_1729000000.mp4
+                        fileSize: 52428800
+                        creationDate: 1729000000.123
+                        modificationDate: 1729000030.456
+                uploadQueued:
+                  summary: Upload queued successfully
+                  value:
+                    deviceId: device-uuid
+                    status: upload_queued
+                    message: Upload added to queue
+                    timestamp: 1729000000.456
+                    isRecording: false
+                    fileId: device-uuid_1729000000123
+                    fileSize: 52428800
+                uploadStatusResponse:
+                  summary: Upload status with queue
+                  value:
+                    deviceId: device-uuid
+                    status: ready
+                    timestamp: 1729000000.456
+                    currentUpload:
+                      fileId: device-uuid_1729000000123
+                      fileName: video_1729000000.mp4
+                      fileSize: 52428800
+                      bytesUploaded: 10485760
+                      uploadProgress: 20.0
+                      uploadSpeed: 2621440
+                      status: uploading
+                      uploadUrl: https://bucket.s3.amazonaws.com/path/video.mp4
+                      error: null
+                    uploadQueue:
+                      - fileId: device-uuid_1729000000456
+                        fileName: video_1729000000456.mp4
+                        fileSize: 41943040
+                        bytesUploaded: 0
+                        uploadProgress: 0.0
+                        uploadSpeed: 0
+                        status: queued
+                        uploadUrl: https://bucket.s3.amazonaws.com/path/video2.mp4
+                        error: null
+        '400':
+          description: Command error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+              examples:
+                timeNotSynchronized:
+                  summary: Device clock not synchronized
+                  value:
+                    deviceId: device-uuid
+                    status: time_not_synchronized
+                    message: Cannot start scheduled recording - time not synchronized
+                    timestamp: 1729000000.123
+                    isRecording: false
+                    fileId: null
+                    fileSize: null
+                fileNotFound:
+                  summary: Requested file not found
+                  value:
+                    deviceId: device-uuid
+                    status: file_not_found
+                    message: File not found
+                    timestamp: 1729000000.123
+                    isRecording: false
+                    fileId: null
+                    fileSize: null
+                uploadFailed:
+                  summary: Upload failed
+                  value:
+                    deviceId: device-uuid
+                    status: upload_failed
+                    message: Network connection failed
+                    timestamp: 1729000000.123
+                    isRecording: false
+                    fileId: device-uuid_1729000000123
+                    fileSize: null
+
+components:
+  schemas:
+    CommandMessage:
+      type: object
+      required:
+        - command
+        - timestamp
+      properties:
+        command:
+          $ref: '#/components/schemas/CommandType'
+        timestamp:
+          type: number
+          format: double
+          description: Unix timestamp in seconds (with fractional seconds)
+          example: 1729000000.123456
+        deviceId:
+          type: string
+          description: ID of the device sending the command (usually "controller")
+          example: controller
+        fileId:
+          type: string
+          description: File identifier (required for GET_VIDEO and UPLOAD_TO_CLOUD commands)
+          example: device-uuid_1729000000123
+          nullable: true
+        uploadUrl:
+          type: string
+          description: Presigned S3 URL for upload (required for UPLOAD_TO_CLOUD command with presigned URL auth)
+          example: https://bucket.s3.amazonaws.com/path/video.mp4?AWSAccessKeyId=...
+          nullable: true
+        s3Bucket:
+          type: string
+          description: S3 bucket name (required for UPLOAD_TO_CLOUD command with IAM credentials auth)
+          example: my-bucket
+          nullable: true
+        s3Key:
+          type: string
+          description: S3 object key/path (required for UPLOAD_TO_CLOUD command with IAM credentials auth)
+          example: 2025-01-15/session_123/video_1729000000.mp4
+          nullable: true
+        awsAccessKeyId:
+          type: string
+          description: AWS access key ID from STS (required for UPLOAD_TO_CLOUD command with IAM credentials auth)
+          example: ASIAXXXXXXXXXXX
+          nullable: true
+        awsSecretAccessKey:
+          type: string
+          description: AWS secret access key from STS (required for UPLOAD_TO_CLOUD command with IAM credentials auth)
+          example: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          nullable: true
+        awsSessionToken:
+          type: string
+          description: AWS session token from STS (required for UPLOAD_TO_CLOUD command with IAM credentials auth)
+          example: FwoGZXIvYXdzEBYaD...
+          nullable: true
+        awsRegion:
+          type: string
+          description: AWS region (required for UPLOAD_TO_CLOUD command with IAM credentials auth)
+          example: us-east-1
+          nullable: true
+
+    CommandType:
+      type: string
+      enum:
+        - START_RECORDING
+        - STOP_RECORDING
+        - DEVICE_STATUS
+        - GET_VIDEO
+        - HEARTBEAT
+        - LIST_FILES
+        - UPLOAD_TO_CLOUD
+        - UPLOAD_STATUS
+      description: |
+        Available command types:
+
+        - `START_RECORDING`: Start recording. If timestamp is in the future, schedule synchronized recording.
+        - `STOP_RECORDING`: Stop current recording and return file ID.
+        - `DEVICE_STATUS`: Query current device status.
+        - `GET_VIDEO`: Download video file (returns binary data with FileResponse header).
+        - `HEARTBEAT`: Health check ping.
+        - `LIST_FILES`: List available video files on device.
+        - `UPLOAD_TO_CLOUD`: Upload video file to cloud using presigned S3 URL. Device will auto-delete file after successful upload.
+        - `UPLOAD_STATUS`: Get current upload status and queue.
+
+        **Note**: LIST_FILES is implemented in iOS but may not be available on all platforms.
+
+    StatusResponse:
+      type: object
+      required:
+        - deviceId
+        - status
+        - timestamp
+        - isRecording
+      properties:
+        deviceId:
+          type: string
+          description: Unique identifier of the responding device
+          example: device-uuid-1234
+        status:
+          $ref: '#/components/schemas/DeviceStatus'
+        message:
+          type: string
+          description: Human-readable status message
+          example: Recording started
+          nullable: true
+        timestamp:
+          type: number
+          format: double
+          description: Unix timestamp when response was generated
+          example: 1729000000.123456
+        isRecording:
+          type: boolean
+          description: Current recording state
+          example: true
+        fileId:
+          type: string
+          description: File identifier (returned after stopping recording)
+          example: device-uuid_1729000000123
+          nullable: true
+        fileSize:
+          type: integer
+          format: int64
+          description: File size in bytes (for GET_VIDEO responses)
+          example: 52428800
+          nullable: true
+        deviceType:
+          type: string
+          description: Type of device (see DeviceType enum for standard values)
+          example: iOS:iPhone
+          nullable: true
+
+    DeviceType:
+      type: string
+      enum:
+        - iOS:iPhone
+        - Android:Phone
+        - Android:Quest
+        - Oak
+      description: |
+        Device type values:
+
+        - `iOS:iPhone`: iOS device (iPhone)
+        - `Android:Phone`: Android phone device
+        - `Android:Quest`: Android Quest VR headset
+        - `Oak`: OAK camera device
+
+    DeviceStatus:
+      type: string
+      enum:
+        - ready
+        - recording
+        - stopping
+        - error
+        - scheduled_recording_accepted
+        - recording_stopped
+        - command_received
+        - time_not_synchronized
+        - file_not_found
+        - uploading
+        - upload_queued
+        - upload_completed
+        - upload_failed
+      description: |
+        Device status values:
+
+        - `ready`: Device is idle and ready for commands
+        - `recording`: Currently recording video
+        - `stopping`: Recording stop in progress
+        - `error`: Error state (check message field)
+        - `scheduled_recording_accepted`: Future recording scheduled and accepted
+        - `recording_stopped`: Recording completed successfully
+        - `command_received`: Command acknowledged
+        - `time_not_synchronized`: Device clock not synchronized via NTP
+        - `file_not_found`: Requested file does not exist
+        - `uploading`: Currently uploading file to cloud
+        - `upload_queued`: Upload added to queue
+        - `upload_completed`: Upload completed successfully (file auto-deleted)
+        - `upload_failed`: Upload failed (check message field for error)
+
+    FileResponse:
+      type: object
+      required:
+        - deviceId
+        - fileId
+        - fileName
+        - fileSize
+        - status
+      description: |
+        Header for binary file transfer. Sent as JSON before binary file data.
+
+        Binary protocol:
+        1. Header size (4 bytes, big-endian uint32)
+        2. JSON FileResponse header
+        3. Binary file data
+      properties:
+        deviceId:
+          type: string
+          description: Device that owns the file
+          example: device-uuid-1234
+        fileId:
+          type: string
+          description: File identifier
+          example: device-uuid_1729000000123
+        fileName:
+          type: string
+          description: Original filename
+          example: video_1729000000.mp4
+        fileSize:
+          type: integer
+          format: int64
+          description: File size in bytes
+          example: 52428800
+        status:
+          $ref: '#/components/schemas/DeviceStatus'
+
+    FileMetadata:
+      type: object
+      required:
+        - fileId
+        - fileName
+        - fileSize
+        - creationDate
+        - modificationDate
+      description: Metadata for a single file
+      properties:
+        fileId:
+          type: string
+          description: Unique file identifier
+          example: device-uuid_1729000000123
+        fileName:
+          type: string
+          description: Filename
+          example: video_1729000000.mp4
+        fileSize:
+          type: integer
+          format: int64
+          description: File size in bytes
+          example: 52428800
+        creationDate:
+          type: number
+          format: double
+          description: File creation time (Unix timestamp)
+          example: 1729000000.123
+        modificationDate:
+          type: number
+          format: double
+          description: File modification time (Unix timestamp)
+          example: 1729000030.456
+
+    ListFilesResponse:
+      type: object
+      required:
+        - deviceId
+        - status
+        - timestamp
+        - files
+      description: Response to LIST_FILES command
+      properties:
+        deviceId:
+          type: string
+          description: Device ID
+          example: device-uuid-1234
+        status:
+          $ref: '#/components/schemas/DeviceStatus'
+        timestamp:
+          type: number
+          format: double
+          description: Response timestamp
+          example: 1729000000.123
+        files:
+          type: array
+          description: List of available files
+          items:
+            $ref: '#/components/schemas/FileMetadata'
+
+    UploadItem:
+      type: object
+      required:
+        - fileId
+        - fileName
+        - fileSize
+        - bytesUploaded
+        - uploadProgress
+        - uploadSpeed
+        - status
+      description: Upload item with progress information
+      properties:
+        fileId:
+          type: string
+          description: File identifier
+          example: device-uuid_1729000000123
+        fileName:
+          type: string
+          description: Filename
+          example: video_1729000000.mp4
+        fileSize:
+          type: integer
+          format: int64
+          description: Total file size in bytes
+          example: 52428800
+        bytesUploaded:
+          type: integer
+          format: int64
+          description: Bytes uploaded so far
+          example: 10485760
+        uploadProgress:
+          type: number
+          format: double
+          description: Upload progress percentage (0-100)
+          example: 20.0
+        uploadSpeed:
+          type: integer
+          format: int64
+          description: Current upload speed in bytes per second
+          example: 2621440
+        status:
+          type: string
+          enum:
+            - queued
+            - uploading
+            - completed
+            - failed
+          description: Upload status (queued, uploading, completed, failed)
+          example: uploading
+        uploadUrl:
+          type: string
+          description: Presigned S3 URL for upload (only present when using presigned URL auth method)
+          example: https://bucket.s3.amazonaws.com/path/video.mp4
+          nullable: true
+        error:
+          type: string
+          description: Error message if upload failed
+          example: Network connection failed
+          nullable: true
+
+    UploadStatusResponse:
+      type: object
+      required:
+        - deviceId
+        - status
+        - timestamp
+        - uploadQueue
+      description: Response to UPLOAD_STATUS command
+      properties:
+        deviceId:
+          type: string
+          description: Device ID
+          example: device-uuid-1234
+        status:
+          $ref: '#/components/schemas/DeviceStatus'
+        timestamp:
+          type: number
+          format: double
+          description: Response timestamp
+          example: 1729000000.123
+        currentUpload:
+          $ref: '#/components/schemas/UploadItem'
+          description: Currently uploading item (null if no active upload)
+          nullable: true
+        uploadQueue:
+          type: array
+          description: Queue of pending uploads
+          items:
+            $ref: '#/components/schemas/UploadItem'
+
+    NetworkConstants:
+      type: object
+      description: Network configuration constants
+      properties:
+        port:
+          type: integer
+          example: 8080
+          description: TCP port for device server
+        serviceType:
+          type: string
+          example: _multicam._tcp.local.
+          description: mDNS service type for device discovery
+        ntpServer:
+          type: string
+          example: pool.ntp.org
+          description: NTP server for time synchronization
+        ntpPort:
+          type: integer
+          example: 123
+          description: NTP protocol port
+        maxAcceptableRTT:
+          type: number
+          format: double
+          example: 0.5
+          description: Maximum acceptable NTP round-trip time in seconds
+        syncDelay:
+          type: number
+          format: double
+          example: 3.0
+          description: Default delay for synchronized recording start (seconds)
