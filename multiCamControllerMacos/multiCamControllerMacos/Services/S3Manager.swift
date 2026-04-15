@@ -14,8 +14,8 @@ import SmithyIdentity
 // MARK: - AWS Credentials (fill if you prefer static credentials)
 // If left empty, the SDK will use the default chain (env vars, ~/.aws/credentials, etc.)
 private enum AWSStaticCredentialsConfig {
-    static let accessKeyId: String = "***REMOVED***"
-    static let secretAccessKey: String = "***REMOVED***"
+    static let accessKeyId: String = ""
+    static let secretAccessKey: String = ""
     static let sessionToken: String? = nil
 }
 

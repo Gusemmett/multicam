@@ -2,6 +2,7 @@
 
 import json
 import logging
+import os
 import tempfile
 import requests
 from pathlib import Path
@@ -14,8 +15,8 @@ logger = logging.getLogger(__name__)
 class MetadataManager:
     """Manages creation and persistence of metadata.json files"""
 
-    # WeatherAPI.com API key (hardcoded)
-    _WEATHER_API_KEY = "***REMOVED***"
+    # WeatherAPI.com API key — set via WEATHER_API_KEY env var
+    _WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY", "")
 
     @staticmethod
     def _get_location_and_weather(timeout: int = 5) -> tuple[Optional[Dict], Optional[Dict]]:
